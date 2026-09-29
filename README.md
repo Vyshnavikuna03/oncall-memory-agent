@@ -4,10 +4,6 @@
 
 Built for **Hack with Hyderabad 3.0** ("AI Agents That Learn Using Hindsight") with [Hindsight](https://hindsight.vectorize.io/) as the memory layer.
 
-- 🎥 Demo video: `ADD LINK`
-- 🌐 Live demo: `ADD LINK (or "runs locally, see Quick start")`
-- 👥 Team: `ADD NAMES`
-
 ---
 
 ## The problem
