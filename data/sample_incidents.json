@@ -1,0 +1,41 @@
+[
+  {
+    "id": "INC-1001",
+    "timestamp": "2026-08-03T02:14:00Z",
+    "service": "payments-api",
+    "severity": "SEV1",
+    "symptoms": "Checkout requests timing out, 5xx rate at 38%, alert: payments-api p99 latency > 8s",
+    "logs": "ERROR redis.exceptions.ConnectionError: Too many connections\nWARN pool exhausted, waiting for free connection (timeout=5000ms)",
+    "root_cause": "Redis connection pool exhausted after a traffic spike from a flash sale; pool max_connections was 50",
+    "fix_applied": "Increased Redis pool max_connections from 50 to 200 and restarted payments-api workers",
+    "outcome": "resolved",
+    "time_to_resolve_minutes": 47,
+    "engineer": "Ananya"
+  },
+  {
+    "id": "INC-1007",
+    "timestamp": "2026-08-19T14:40:00Z",
+    "service": "auth-service",
+    "severity": "SEV2",
+    "symptoms": "Users randomly logged out, spike in 401 responses",
+    "logs": "ERROR jwt.exceptions.ExpiredSignatureError: Signature has expired\nWARN clock skew detected between auth-service pods: 94s",
+    "root_cause": "NTP drift on one node caused JWT validation to fail on tokens issued by other pods",
+    "fix_applied": "Restarted the auth-service pods only (no clock fix)",
+    "outcome": "failed",
+    "time_to_resolve_minutes": 90,
+    "engineer": "Rahul"
+  },
+  {
+    "id": "INC-1008",
+    "timestamp": "2026-08-19T16:25:00Z",
+    "service": "auth-service",
+    "severity": "SEV2",
+    "symptoms": "Same random logouts returned two hours after restart",
+    "logs": "WARN clock skew detected between auth-service pods: 102s",
+    "root_cause": "NTP drift on node ip-10-0-3-17 (chrony service stopped)",
+    "fix_applied": "Restarted chrony on the node and cordoned it until time synced",
+    "outcome": "resolved",
+    "time_to_resolve_minutes": 35,
+    "engineer": "Rahul"
+  }
+]
